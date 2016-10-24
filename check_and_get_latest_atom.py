@@ -12,6 +12,10 @@ def fix_path(path):
     return path if path[len(path)-1] == '/' else path + '/'
 
 
+def get_distro_name():
+    return platform.linux_distribution(full_distribution_name=0)[0].lower()
+
+
 def get_github_data():
     url = "https://api.github.com/repos/atom/atom/releases/latest"
     response_str = urllib.request.urlopen(url).read().decode('utf-8')
@@ -30,16 +34,14 @@ def get_package_name():
     packages['suse'] = 'atom.x86_64.rpm'
     packages['ubuntu'] = 'atom-amd64.deb'
     packages['debian'] = 'atom-amd64.deb'
-    distro = platform.linux_distribution(full_distribution_name=0)[0].lower()
-    return packages[distro]
+    return packages[get_distro_name()]
 
 
 def get_install_command():
     commands = {}
     commands['fedora'] = 'dnf install '
     commands['ubuntu'] = 'apt install '
-    distro = platform.linux_distribution(full_distribution_name=0)[0].lower()
-    return commands[distro]
+    return commands[get_distro_name()]
 
 
 def get_download_link(latest_version):
