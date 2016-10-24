@@ -47,6 +47,11 @@ def download_atom_package(link, file_name):
         out_file.write(data)
 
 
+def install_atom_package(file_name):
+    print("Installing package :", file_name)
+    os.popen("dnf install " + file_name).read()
+
+
 def check_and_get_latest_atom(path_to_download="/tmp/"):
     json_data = get_github_data()
     latest_version = json_data['name']
@@ -60,8 +65,14 @@ def check_and_get_latest_atom(path_to_download="/tmp/"):
         link = get_download_link(latest_version)
         file_name = path_to_download + get_package_name()
         download_atom_package(link, file_name)
+        install_atom_package(file_name)
+        os.remove(file_name)
 
 #############################################################################
+
+if os.getuid() != 0:
+    print("This scrint must be run as root")
+    exit()
 
 if len(sys.argv) != 2:
     check_and_get_latest_atom()
