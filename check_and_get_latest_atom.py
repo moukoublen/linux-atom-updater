@@ -34,6 +34,14 @@ def get_package_name():
     return packages[distro]
 
 
+def get_install_command():
+    commands = {}
+    commands['fedora'] = 'dnf install '
+    commands['ubuntu'] = 'apt install '
+    distro = platform.linux_distribution(full_distribution_name=0)[0].lower()
+    return commands[distro]
+
+
 def get_download_link(latest_version):
     base_link = "https://github.com/atom/atom/releases/download"
     return "%s/v%s/%s" % (base_link, latest_version, get_package_name())
@@ -49,7 +57,7 @@ def download_atom_package(link, file_name):
 
 def install_atom_package(file_name):
     print("Installing package :", file_name)
-    os.popen("dnf install " + file_name).read()
+    os.popen(get_install_command() + file_name).read()
 
 
 def check_and_get_latest_atom(path_to_download="/tmp/"):
