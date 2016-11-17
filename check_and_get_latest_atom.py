@@ -39,7 +39,7 @@ def get_package_name():
 
 def get_install_command():
     commands = {}
-    commands['fedora'] = 'dnf install '
+    commands['fedora'] = 'dnf -y install '
     commands['ubuntu'] = 'apt install '
     return commands[get_distro_name()]
 
@@ -50,15 +50,15 @@ def get_download_link(latest_version):
 
 
 def download_atom_package(link, file_name):
-    print("Downloading      : ", link)
-    print("Download to      : ", file_name)
+    print("Downloading        : ", link)
+    print("Download to        : ", file_name)
     data = urllib.request.urlopen(link).read()
     with open(file_name, 'wb') as out_file:
         out_file.write(data)
 
 
 def install_atom_package(file_name):
-    print("Installing package :", file_name)
+    print("Installing package : ", file_name)
     os.popen(get_install_command() + file_name).read()
 
 
@@ -66,9 +66,9 @@ def check_and_get_latest_atom(path_to_download="/tmp/"):
     json_data = get_github_data()
     latest_version = json_data['name']
     current_version = get_local_atom_version()
-    print("Path to download : ", path_to_download)
-    print("Current Version  : ", current_version)
-    print("Latest  Version  : ", latest_version)
+    print("Path to download   : ", path_to_download)
+    print("Current Version    : ", current_version)
+    print("Latest  Version    : ", latest_version)
     if(current_version == latest_version):
         print("\nAtom is updated! No download is needed.")
     else:
