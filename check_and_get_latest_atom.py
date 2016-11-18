@@ -40,7 +40,7 @@ def get_package_name():
 def get_install_command():
     commands = {}
     commands['fedora'] = 'dnf -y install '
-    commands['ubuntu'] = 'apt install '
+    commands['ubuntu'] = 'apt install -y '
     return commands[get_distro_name()]
 
 
