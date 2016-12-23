@@ -39,8 +39,8 @@ def get_package_name():
 
 def get_install_command():
     commands = {}
-    commands['fedora'] = 'dnf -y install '
-    commands['ubuntu'] = 'apt install -y '
+    commands['fedora'] = 'sudo dnf -y install '
+    commands['ubuntu'] = 'sudo apt install -y '
     return commands[get_distro_name()]
 
 
@@ -80,9 +80,9 @@ def check_and_get_latest_atom(path_to_download="/tmp/"):
 
 #############################################################################
 
-if os.getuid() != 0:
-    print("This scrint must be run as root")
-    exit()
+#if os.getuid() != 0:
+#    print("This scrint must be run as root")
+#    exit()
 
 if len(sys.argv) != 2:
     check_and_get_latest_atom()
