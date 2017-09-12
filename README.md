@@ -5,6 +5,6 @@ It (should) work on fedora and ubuntu
 
 Run:
 ``````
-./check_and_get_latest_atom.py
+./atom_updater.py
 
 ```
